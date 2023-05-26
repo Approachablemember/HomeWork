@@ -1,0 +1,31 @@
+.item {
+    border: 2px solid black;
+
+}
+
+.item:last-of-type {
+}
+
+.users {
+
+}
+
+.buttonsContainer {
+}
+
+.container {
+
+}
+
+.thead {
+    background-color: #E5E5E5;
+    width: 200px;
+    display: flex;
+    flex-direction: row;
+}
+
+.nameCol {
+}
+
+.ageCol {
+}

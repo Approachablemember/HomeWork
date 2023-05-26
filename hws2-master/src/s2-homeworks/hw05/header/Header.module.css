@@ -1,0 +1,16 @@
+.burgerMenuIcon {
+    margin-left: 100px;
+    margin-right: 900px;
+}
+
+.header {
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid grey;
+    align-content: space-around;
+    box-shadow: 1px 1px 5px 5px #888888;
+}
+
+.header h1 {
+}
