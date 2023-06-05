@@ -2,10 +2,9 @@ import React, {useState} from 'react'
 import SuperButton from '../hw04/common/c2-SuperButton/SuperButton'
 import {restoreState} from '../hw06/localStorage/localStorage'
 import s from './Clock.module.css'
-import internal from "stream";
 
 function Clock() {
-    const [timerId, setTimerId] = useState<number | undefined>(undefined)
+    const [timerId, setTimerId] = useState<NodeJS.Timer | undefined>(undefined)
     // for autotests // не менять // можно подсунуть в локалСторэдж нужную дату, чтоб увидеть как она отображается
     const [date, setDate] = useState<Date>(new Date(restoreState('hw9-date', Date.now())))
     const [show, setShow] = useState<boolean>(false)
@@ -13,18 +12,19 @@ function Clock() {
     const start = () => {
         // пишут студенты // запустить часы (должно отображаться реальное время, а не +1)
         // сохранить ид таймера (https://learn.javascript.ru/settimeout-setinterval#setinterval)
-        setTimerId(1)
+
         let interval = setInterval(
             () => {
                 setDate(new Date())
             }, 1000
         )
+        setTimerId(interval)
         return () => clearInterval(interval)
     }
 
     const stop = () => {
         // пишут студенты // поставить часы на паузу, обнулить ид таймера (timerId <- undefined)
-        //clearInterval(interval)
+        clearInterval(timerId)
         setTimerId(undefined)
     }
 
@@ -42,7 +42,7 @@ function Clock() {
     </span> || <br/> // часы24:минуты:секунды (01:02:03)/(23:02:03)/(24:00:00)/(00:00:01) // пишут студенты
     const stringDate = <span>
         {date.getDate() < 10 ? '0' + date.getDate() : date.getDate()}.
-        {date.getMonth() + 1 < 10 ? '0' + date.getMonth() + 1 : date.getMonth() + 1}.
+        {date.getMonth() + 1 < 10 ? <span>0{date.getMonth() + 1}</span>: date.getMonth() + 1}.
         {date.getFullYear()}
     </span> || <br/> // день.месяц.год (01.02.2022) // пишут студенты, варианты 01.02.0123/01.02.-123/01.02.12345 не рассматриваем
 

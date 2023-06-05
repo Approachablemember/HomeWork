@@ -40,7 +40,7 @@ const SuperSelect: React.FC<SuperSelectPropsType> = ({
 
         const selectedOption = e.currentTarget.value
         if (onChangeOption) {
-            onChangeOption(e.currentTarget.value)
+            onChangeOption(e.currentTarget.value.toString())
             console.log(typeof(selectedOption) + ' select' )
         }
     }
