@@ -10,7 +10,7 @@ import errorUnknown from './images/error.svg'
 
 /*
 * 1 - дописать функцию send
-* 2 - дизэйблить кнопки пока идёт запрос
+* 2 - дизэйблить кнопки пока идёт запрос /
 * 3 - сделать стили в соответствии с дизайном
 * */
 
@@ -24,24 +24,65 @@ const HW13 = () => {
         const url =
             x === null
                 ? 'https://xxxxxx.ccc' // имитация запроса на не корректный адрес
-                : 'https://incubator-personal-page-back.herokuapp.com/api/3.0/homework/test'
+                : 'https://demo.treblle.com/api/v1/articles'
 
         setCode('')
         setImage('')
         setText('')
         setInfo('...loading')
 
+        const payloadTrue = {
+            title: "Hi there",
+            content: "Hi there again",
+            image: "https://via.placeholder.com/800x600.png/003322?text=qui",
+            user: "ccdd2142-05a5-3a13-ab31-3c72aa79cbe9"
+        }
+
+        const payloadFalse = {
+            user: "ccdd2142-05a5-3a13-ab31-3c72aa79cbe9"
+        }
+
+        const payloadUndefined = {}
+
+        let payloadToSend;
+
+        if(x === true){
+            payloadToSend = payloadTrue
+        }else if(x === false){
+            payloadToSend = payloadFalse
+        }else {
+            payloadToSend = payloadUndefined
+        }
+
         axios
-            .post(url, {success: x})
+            .post(url, payloadToSend)
             .then((res) => {
-                setCode('Код 200!')
+                setCode('Code 200!')
                 setImage(success200)
                 // дописать
+                setInfo('')
+                setText('Code 200, everything is fine. You Are Great')
 
             })
             .catch((e) => {
                 // дописать
+                if(e.response?.status >= 400 && e.response?.status < 500){
+                    setCode('Code 400!')
+                    setImage(error400)
+                    setInfo('')
+                    setText('Seems like you just sent something wrong so you have got error 400 - 499')
+                }else if (e.response?.status >= 500 && e.response?.status < 600){
+                    setCode('Code 500!')
+                    setImage(error500)
+                    setInfo('')
+                    setText('Oops, something happened with the server and you have got error 500 - 599')
+                }else{
+                    setCode('ERR_NAME_NOT_RESOLVED')
+                    setImage(errorUnknown)
+                    setInfo('')
+                    setText(' Network error')
 
+                }
             })
     }
 
@@ -54,8 +95,9 @@ const HW13 = () => {
                     <SuperButton
                         id={'hw13-send-true'}
                         onClick={send(true)}
-                        xType={'secondary'}
+                        xType={'primary'}
                         // дописать
+                        disabled={info === '...loading'}
 
                     >
                         Send true
@@ -63,8 +105,9 @@ const HW13 = () => {
                     <SuperButton
                         id={'hw13-send-false'}
                         onClick={send(false)}
-                        xType={'secondary'}
+                        xType={'primary'}
                         // дописать
+                        disabled={info === '...loading'}
 
                     >
                         Send false
@@ -72,8 +115,9 @@ const HW13 = () => {
                     <SuperButton
                         id={'hw13-send-undefined'}
                         onClick={send(undefined)}
-                        xType={'secondary'}
+                        xType={'primary'}
                         // дописать
+                        disabled={info === '...loading'}
 
                     >
                         Send undefined
@@ -81,8 +125,9 @@ const HW13 = () => {
                     <SuperButton
                         id={'hw13-send-null'}
                         onClick={send(null)} // имитация запроса на не корректный адрес
-                        xType={'secondary'}
+                        xType={'primary'}
                         // дописать
+                        disabled={info === '...loading'}
 
                     >
                         Send null

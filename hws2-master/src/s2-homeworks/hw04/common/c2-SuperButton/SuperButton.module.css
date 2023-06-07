@@ -22,7 +22,7 @@
 }
 
 .red {
-    background-color: crimson;
+    background-color: red;
     border: 1px solid crimson;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .red:hover {
-    background-color: red;
+    background-color: crimson;
 }
 
 .secondary:hover {
@@ -48,7 +48,7 @@
 }
 
 .red:active {
-    background-color: crimson;
+    background-color: darkred;
 }
 
 .button:disabled {
